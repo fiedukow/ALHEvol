@@ -1,0 +1,14 @@
+This is project for Warsaw University of Technology ALHE (Heuristic Alorigthms) course.
+This project is based on evol library.
+
+Task description (original - in polish):
+"Badanie efektów wielowymiarowych dla prostego AE - różnorodność populacji, średnia odległość od centrum, możliwość przejścia siodła, survival of the flattest."
+What can be translated as:
+"Research about multidemensional effects for simple genethic algorithm, variety of population, average distance from center, possibility of passing through saddle point, survival of the flattest."
+
+Project tutor:
+prof. dr hab. Jarosław Arabas
+
+Authors:
+Andrzej 'Yester' Fiedukowicz (fiedukow@gmail.com)
+Maciej 'mac' Grzybek (mashester@gmail.com)
