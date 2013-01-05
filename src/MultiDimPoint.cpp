@@ -1,6 +1,7 @@
 #include "MultiDimPoint.hpp"
 #include "FunctionValue.hpp"
 #include <evol/Chromosome.hpp>
+#include <evol/EvolFunctions.hpp>
 
 #include <iostream>
 
@@ -8,7 +9,7 @@ MultiDimPoint::MultiDimPoint(int dimensionsCount, const MultiDimGauss& ff)
   : dimensionsCount(dimensionsCount),
     ff(ff)
 {
-  points.reserve(dimensionsCount);
+  setInitialValue();
 }
 
 void MultiDimPoint::setInitialValue()
@@ -22,7 +23,15 @@ SubjectPtr MultiDimPoint::clone() const
 {
   SubjectPtr newMultiDimPoint(new MultiDimPoint(dimensionsCount, ff));
   for(int i = 0; i < dimensionsCount; ++i)
-    newMultiDimPoint->addChromosome(ChromosomePtr(new PointValue(points[i].getValue())));
+  {
+    newMultiDimPoint->addChromosome(
+      ChromosomePtr(
+        new PointValue(
+          getDimensionValue(i)
+        )
+      )
+    );
+  }
 
   return newMultiDimPoint;
 }
@@ -34,7 +43,7 @@ int MultiDimPoint::getDimensionsCount() const
 
 double MultiDimPoint::getDimensionValue(int dim) const
 {
-  return points[dim].getValue();
+  return EvolFunctions::ptr_cast<ChromosomePtr, PointValue>(getChromosome(dim))->getValue();
 }
 
 double MultiDimPoint::getFunctionValue() const
@@ -48,7 +57,7 @@ void MultiDimPoint::print() const
 {
   std::cout << "Punkt: ";
   for(int i = 0; i < dimensionsCount; ++i)
-    std::cout << points[i].getValue() << ((i != dimensionsCount-1) ? ", " : ";");
+    std::cout << getDimensionValue(i) << ((i != dimensionsCount-1) ? ", " : ";");
   std::cout << std::endl;
   std::cout << "Wynik: " << getFunctionValue() << std::endl;
 }

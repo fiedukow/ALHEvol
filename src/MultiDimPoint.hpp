@@ -27,7 +27,6 @@ class MultiDimPoint : public Subject
 
   private:
   int dimensionsCount;
-  std::vector<PointValue> points;
   const MultiDimGauss& ff;
 };
 
