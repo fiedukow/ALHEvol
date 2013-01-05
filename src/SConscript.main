@@ -7,6 +7,7 @@ env = Environment(
 sourceTargets = ['main.cpp',
                  'PointValue.cpp',              
                  'MultiDimPoint.cpp',
+                 'MultiDimGauss.cpp',
                  'evol/EvolException.cpp',
                  'evol/EvolFunctions.cpp',
                  'evol/Population.cpp',
