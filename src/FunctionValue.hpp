@@ -15,6 +15,9 @@ public:
   virtual bool operator==(const FitnessFunction& toCompare) const;
   virtual void calculate(const Subject& toCalculate);
   virtual std::unique_ptr< FitnessFunction > clone() const;
+
+  double getValue() const;
+
   virtual void print() const;
   
 private: 

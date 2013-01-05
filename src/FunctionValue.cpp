@@ -37,6 +37,11 @@ std::unique_ptr<FitnessFunction> FunctionValue::clone() const
   return std::unique_ptr<FitnessFunction>(new FunctionValue(*this));
 }
 
+double FunctionValue::getValue() const
+{
+  return value;
+}
+
 void FunctionValue::print() const
 {
   std::cout << "Wartosc funkcji: " << value << std::endl;
