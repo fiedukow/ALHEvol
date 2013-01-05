@@ -25,6 +25,16 @@ SubjectPtr MultiDimPoint::clone() const
   return newMultiDimPoint;
 }
 
+int MultiDimPoint::getDimensionsCount() const
+{
+  return dimensionsCount;
+}
+
+double MultiDimPoint::getDimensionValue(int dim) const
+{
+  return points[dim].getValue();
+}
+
 void MultiDimPoint::print() const
 {
   std::cout << "Punkt: ";

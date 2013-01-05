@@ -17,13 +17,13 @@ class MultiDimPoint : public Subject
   virtual void setInitialValue();
   virtual SubjectPtr clone() const;
 
+  int getDimensionsCount() const;
+  double getDimensionValue(int dim) const;
+
   virtual void print() const;
 
   private:
   int dimensionsCount;
   std::vector<PointValue> points;
-/*std::list<double> covarianceFactors;
-  std::list<double> heightFactors;
-  std::list<std::list<double>> expectedValues;*/
 };
 
