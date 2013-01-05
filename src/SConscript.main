@@ -1,8 +1,8 @@
 # vim: ft=python
 
 env = Environment(
-                    CCFLAGS = '-O2 -std=c++0x -g -DGSL_AVAILABLE -Wall -Wextra -Isrc/',
-                    LINKFLAGS = '-std=c++0x -latlas -lm -lgslcblas -lgsl -g'
+                    CCFLAGS = '-O2 -std=c++0x -DGSL_AVAILABLE -Wall -Wextra -Isrc/',
+                    LINKFLAGS = '-std=c++0x -latlas -lm -lgslcblas -lgsl'
                  )
 sourceTargets = ['main.cpp',
                  'PointValue.cpp',              
