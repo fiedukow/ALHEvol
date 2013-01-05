@@ -16,10 +16,14 @@ MyGaussDescription::MyGaussDescription(double covarianceFactor,
 
 MultiDimGauss::MultiDimGauss(std::vector<MyGaussDescription> hills)
 {
+  int dimensions;
   for(std::vector<MyGaussDescription>::iterator i = hills.begin();
       i != hills.end();
       ++i)
   {
+    assert(i == hills.begin() || dimensions == i->nDim);
+    dimensions = i->nDim;
+
     gsl_matrix* cov = gsl_matrix_calloc(i->nDim, i->nDim);
     gsl_vector* ex  = gsl_vector_alloc(i->nDim);
     for(int j = 0; j < i->nDim; ++j)
@@ -53,7 +57,8 @@ MultiDimGauss::~MultiDimGauss()
 
 double MultiDimGauss::getValueForVector(gsl_vector* point) const
 {
-  assert(point->size == covarianceMatrixes.size());
+  assert(covarianceMatrixes.size() == 0 ||
+         expectedValues[0]->size == point->size);
   double result = 0.0;
 
   for(unsigned int i = 0; i < covarianceMatrixes.size(); ++i)
