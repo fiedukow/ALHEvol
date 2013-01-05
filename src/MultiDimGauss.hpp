@@ -22,6 +22,8 @@ public:
   MultiDimGauss(std::vector<MyGaussDescription> hills);
   ~MultiDimGauss();
 
+  double getValueForVector(gsl_vector* point);
+
 private:
   std::vector<gsl_matrix*> covarianceMatrixes;
   std::vector<gsl_vector*> expectedValues;

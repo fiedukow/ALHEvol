@@ -1,4 +1,6 @@
 #include "MultiDimGauss.hpp"
+#include <gsl_addons/rmv.h>
+#include <cassert>
 
 MyGaussDescription::MyGaussDescription(double covarianceFactor,
                                        double heightFactor,
@@ -47,5 +49,19 @@ MultiDimGauss::~MultiDimGauss()
   {
     gsl_vector_free(*i);
   }
+}
+
+double MultiDimGauss::getValueForVector(gsl_vector* point)
+{
+  assert(point->size == covarianceMatrixes.size());
+  double result = 0.0;
+
+  for(int i = 0; i < covarianceMatrixes.size(); ++i)
+  {
+    result += dmvnorm(point->size, point, expectedValues[i], covarianceMatrixes[i])
+              * heightFactors[i];
+  }
+
+  return result;
 }
 
