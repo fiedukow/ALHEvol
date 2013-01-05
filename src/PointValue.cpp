@@ -26,3 +26,8 @@ void PointValue::mutate()
   double factor = EvolFunctions::gaussRandom(0, 0.33);
   value += value * factor;
 }
+
+double PointValue::getValue() const
+{
+  return value;
+}

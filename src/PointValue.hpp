@@ -15,6 +15,8 @@ class PointValue : public Chromosome
     PointValue(double value);
     virtual ChromosomePtr crossWith(ChromosomePtr toCross ) const;
     virtual void mutate();
+
+    double getValue() const;
   
     private:
     double value;
