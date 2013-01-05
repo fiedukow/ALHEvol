@@ -51,12 +51,12 @@ MultiDimGauss::~MultiDimGauss()
   }
 }
 
-double MultiDimGauss::getValueForVector(gsl_vector* point)
+double MultiDimGauss::getValueForVector(gsl_vector* point) const
 {
   assert(point->size == covarianceMatrixes.size());
   double result = 0.0;
 
-  for(int i = 0; i < covarianceMatrixes.size(); ++i)
+  for(unsigned int i = 0; i < covarianceMatrixes.size(); ++i)
   {
     result += dmvnorm(point->size, point, expectedValues[i], covarianceMatrixes[i])
               * heightFactors[i];
