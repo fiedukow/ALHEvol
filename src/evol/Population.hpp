@@ -325,7 +325,7 @@ class FitnessFunction
     /**
      * It prints the result - whatever that means
      */
-    virtual void print() = 0;    
+    virtual void print() const = 0;    
 
     /**
      * Prepare FF object to compare using Subject object which provides necessary informations. 
