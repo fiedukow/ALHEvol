@@ -1,13 +1,16 @@
 #include "PointValue.hpp"
 #include <evol/EvolFunctions.hpp>
+#include <iostream>
 
 PointValue::PointValue()
-  : value(EvolFunctions::random(-10, 10))
-{}
+  : value((EvolFunctions::random()-0.5)*10) //-5 to 5
+{
+}
 
 PointValue::PointValue(double value)
   : value(value)
-{}
+{
+}
 
 ChromosomePtr PointValue::crossWith(ChromosomePtr toCross) const
 {
