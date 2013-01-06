@@ -72,7 +72,7 @@ struct EvolFunctions
      * @return ABS of given double value
      */
     template<class numericType>
-    numericType abs(numericType valueToAbs)
+    static numericType abs(numericType valueToAbs)
     {
       return valueToAbs > 0 ? valueToAbs : -valueToAbs;
     }
