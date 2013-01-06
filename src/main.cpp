@@ -22,7 +22,7 @@ int main(int /*argc*/, char** /*argv*/)
 
   std::cout << "Generating gauss.dat - grid data file for gnuplot with"
             << " fitness function values..." << std::endl;
-  gauss.saveAsGridData("presentation/data/gauss.dat", 3, 0.01);
+  gauss.saveAsGridData("presentation/data/gauss.dat", 3, 0.05);
   std::cout << "Grid data file generated." << std::endl << std::endl;
 
   FunctionValue goal(0.1945, gauss); 
