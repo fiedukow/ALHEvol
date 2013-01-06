@@ -4,6 +4,10 @@
 #include "MultiDimPoint.hpp"
 
 #include <iostream>
+#include <fstream>
+#include <sstream>
+#include <cassert>
+#include <vector>
 
 PodgladPostepu::PodgladPostepu() : populationCounter(0)
 {}
@@ -27,4 +31,28 @@ void PodgladPostepu::update( evol::Population& population )
     {
         std::cout << "Pokolenie nr. "<< populationCounter << std::endl << std::endl; 
     }
+    std::stringstream ss;
+    ss << "presentation/" << "subjects_" <<  populationCounter << ".dat";
+    saveSubjectsSnapshot(ss.str(), population);
+}
+
+void PodgladPostepu::saveSubjectsSnapshot(const std::string& fileName,
+                                          evol::Population& population)
+{
+  std::fstream output;
+  output.open(fileName, std::fstream::out);  
+  assert(output.good());
+  std::vector<evol::SubjectPtr>& subjects = population.getSubjects();
+  for(auto& i : subjects)
+  {
+    MultiDimPoint* curr = evol::EvolFunctions::ptr_cast<SubjectPtr, MultiDimPoint>(i);
+    int dims = curr->getDimensionsCount();
+    for(int j = 0; j < dims; ++j)
+    {
+      output << curr->getDimensionValue(j) << ((j < dims - 1) ? " " : "");
+    }
+    output << std::endl;
+  }
+
+  output.close();
 }

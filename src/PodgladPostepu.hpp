@@ -4,13 +4,19 @@
 #include <evol/Observer.hpp>
 #include <evol/Population.hpp>
 
+#include <string>
+
 class PodgladPostepu : public evol::NewGenerationObserver
 {
-    public:
+public:
     PodgladPostepu();
     void update( evol::Population& population );
 
-    private:
+private:
+
+    void saveSubjectsSnapshot(const std::string& fileName,
+                              evol::Population& population);
+
     boost::optional<double> bestFValue;
     unsigned int populationCounter;
 }; 
