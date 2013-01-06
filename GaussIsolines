@@ -1,0 +1,20 @@
+reset
+set xrange [-3:3]
+set yrange [-3:3]
+set isosample 121, 121
+
+set contour base
+set cntrparam level incremental 0, 0.02, 1.0
+unset surface
+set table 'cont.dat'
+splot "gauss.dat"
+unset table
+
+reset
+set xrange [-3:3]
+set yrange [-3:3]
+unset key
+set palette rgbformulae 33,13,10
+set terminal png size 1280,1024
+set output "gauss.png"
+p 'gauss.dat' with image, 'cont.dat' w l lt -1 lw 1.5
