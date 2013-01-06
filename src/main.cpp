@@ -10,13 +10,19 @@
 int main(int /*argc*/, char** /*argv*/)
 {
   std::vector<MyGaussDescription> mgds;
-  double g1ex[] = {-2, -2};
+  double g1ex[] = {-1, -1};
   mgds.push_back(MyGaussDescription(1.0, 1.0, 2, g1ex));
-  double g2ex[] = {2, 2};
-  mgds.push_back(MyGaussDescription(0.6, 0.6, 2, g2ex));
+  double g2ex[] = {1, 1};
+  mgds.push_back(MyGaussDescription(2.2, 2.5, 2, g2ex));
   
   MultiDimGauss gauss(mgds);
-  FunctionValue goal(200, gauss); 
+
+  std::cout << "Generating gauss.dat - grid data file for gnuplot with"
+            << " fitness function values..." << std::endl;
+  gauss.saveAsGridData("gauss.dat", 3, 0.01);
+  std::cout << "Grid data file generated." << std::endl << std::endl;
+
+  FunctionValue goal(0.1944, gauss); 
   evol::SubjectPtr prototype((evol::Subject*) new MultiDimPoint(2, gauss));
   evol::Population pop((FitnessFunction&) goal, prototype, 2500, 0.2, 2.0);
   pop.registerObserver( NObserverPtr( new PodgladPostepu() ) );
