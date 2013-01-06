@@ -1,7 +1,7 @@
 #!/bin/sh
 
-cd presentation
-cp GenerationView GenerationView$1
+cd presentation/data
+cp ../GenerationView GenerationView$1
 str="s/GEN_NUM/$1/g"
 sed -i $str GenerationView$1
 gnuplot < GenerationView$1

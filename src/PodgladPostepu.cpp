@@ -35,7 +35,7 @@ void PodgladPostepu::update( evol::Population& population )
     }
     {
     std::stringstream ss;
-    ss << "presentation/" << "subjects_" <<  populationCounter << ".dat";
+    ss << "presentation/data/" << "subjects_" <<  populationCounter << ".dat";
     saveSubjectsSnapshot(ss.str(), population);
     }
     

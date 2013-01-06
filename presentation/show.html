@@ -20,7 +20,7 @@ function checkImage(src)
 
 function updatePlot()
 {
-  var name = "generation_" + i + ".png";
+  var name = "data/generation_" + i + ".png";
   var toUpdate =  document.getElementById('plot');
   var nbr =  document.getElementById('nb');
   checkImage(name);
@@ -36,7 +36,7 @@ function updatePlot()
 <input type=input onChange="i=this.value; updatePlot();" value=1 id="nb">
 <input type=button onClick="i++; updatePlot();" value=">">
 <hr>
-<img src="generation_1.png" id="plot" />
+<img src="data/generation_1.png" id="plot" />
 </center>
 
 </body>
