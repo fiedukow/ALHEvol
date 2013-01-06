@@ -14,7 +14,9 @@ public:
   
   int getTotalChancesNumber();
   int winnerIndex(int winnerChance);
+  void sortSubjects();
 
 protected:
   virtual void selectSubjects();
+  virtual void crossoverSubjects();
 };

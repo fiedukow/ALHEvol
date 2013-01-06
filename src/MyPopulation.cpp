@@ -28,22 +28,46 @@ int MyPopulation::getTotalChancesNumber()
 int MyPopulation::winnerIndex(int winnerChance)
 {
   int wi = ceil(1.0/2.0*(sqrt(8*((double)winnerChance)+1)-1));
-  wi = (populationSize+populationSize*crossFactor) - wi;
+  wi = (subjects.size()) - wi;
   return wi;
+}
+
+void MyPopulation::sortSubjects()
+{
+  for( SubjectPtr sub : subjects )
+  {
+    std::shared_ptr<FitnessFunction> wynik = goal.clone();
+    wynik->calculate(*sub);
+  }
+
+  SubjectComparator comparator(goal);
+  std::sort(this->subjects.begin(), this->subjects.end(), comparator);
+}
+
+void MyPopulation::crossoverSubjects()
+{
+  notifyCrossover();
+  if(populationSize == 1) return;
+  sortSubjects();
+
+  for(int i = 0; i < populationSize*crossFactor; ++i)
+  {
+    int winner = EvolFunctions::random(1, getTotalChancesNumber());
+    int winId[2] = {-1, -1};
+    winId[0] = winnerIndex(winner);
+    do
+    {
+      winner = EvolFunctions::random(1, getTotalChancesNumber());
+      winId[1] = winnerIndex(winner);
+    } while(winId[0] == winId[1]);
+    addSubject(subjects[winId[0]]->crossWith(subjects[winId[1]]));  
+  }
 }
 
 void MyPopulation::selectSubjects()
 {
   notifySelection();
-
-  for( SubjectPtr sub : subjects )
-  {
-      std::shared_ptr<FitnessFunction> wynik = goal.clone();
-      wynik->calculate(*sub);
-  }
-
-  SubjectComparator comparator(goal);
-  std::sort(this->subjects.begin(), this->subjects.end(), comparator);
+  sortSubjects();
   
   std::vector<SubjectPtr> selected;
   selected.push_back(subjects[0]);
