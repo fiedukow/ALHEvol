@@ -1,4 +1,5 @@
 .sconsign.dblite
 bin/*
 build/*
+presentation/data/*
 
