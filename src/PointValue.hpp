@@ -10,15 +10,19 @@ typedef std::shared_ptr<PointValue> PointValuePtr;
 
 class PointValue : public Chromosome
 {
-    public:
+public:
     PointValue();
     PointValue(double value);
     virtual ChromosomePtr crossWith(ChromosomePtr toCross ) const;
     virtual void mutate();
 
     double getValue() const;
+
+    static const double maxRange;
   
-    private:
+private:
+    static double ensureValueInRange(double v);
+
     double value;
 };
 
