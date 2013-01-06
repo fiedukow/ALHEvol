@@ -26,7 +26,7 @@ typedef std::shared_ptr<FitnessFunction> FFPtr;
  */
 class Population
 {
-    private:
+    protected:
     /**
      * Reference value to compare with.
      */
@@ -268,12 +268,11 @@ private:
      */
     const FitnessFunction& prototype;
 
+public:
     /**
      * Create comparator with given FF prototype
      */
     SubjectComparator( const FitnessFunction& goal );
-
-public:
 
     /**
      * Compare pair of SubjectsPtr (but it comapres VALUES not just pointers)
