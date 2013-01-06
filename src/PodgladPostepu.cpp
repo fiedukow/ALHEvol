@@ -8,6 +8,8 @@
 #include <sstream>
 #include <cassert>
 #include <vector>
+#include <cstdlib>
+#include <cstdio>
 
 PodgladPostepu::PodgladPostepu() : populationCounter(0)
 {}
@@ -31,9 +33,17 @@ void PodgladPostepu::update( evol::Population& population )
     {
         std::cout << "Pokolenie nr. "<< populationCounter << std::endl << std::endl; 
     }
+    {
     std::stringstream ss;
     ss << "presentation/" << "subjects_" <<  populationCounter << ".dat";
     saveSubjectsSnapshot(ss.str(), population);
+    }
+    
+    {
+    std::stringstream ss;
+    ss << "./presentation/genGenerationPng " << populationCounter << "";
+    system(ss.str().c_str());
+    }
 }
 
 void PodgladPostepu::saveSubjectsSnapshot(const std::string& fileName,
