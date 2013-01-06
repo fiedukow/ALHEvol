@@ -76,6 +76,7 @@ for(int i = -RANGE; i <= 2*RANGE; ++i)
     result = dmvnorm(2,x,mean,m) + dmvnorm(2,x,mean1,m1);
     fprintf(stdout,"%.3f %.3f %.3f\n", cx, cy, result);
   }
+  fprintf(stdout,"\n");
 }
 
 return 0;
