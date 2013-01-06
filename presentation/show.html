@@ -1,0 +1,27 @@
+<head>
+<title>ALHEvol</title>
+<script>
+var i = 1;
+
+function updatePlot()
+{
+  var name = "generation_" + i + ".png";
+  var toUpdate =  document.getElementById('plot');
+  var nbr =  document.getElementById('nb');
+  toUpdate.src = name;
+  nbr.value = i;
+}
+
+</script>
+</head>
+
+<body>
+<center>
+<input type=button onClick="i--; if(i<1) i=1; updatePlot();" value="<">
+<input type=input onChange="i=this.value; updatePlot();" value=1 id="nb">
+<input type=button onClick="i++; updatePlot();" value=">">
+<hr>
+<img src="generation_1.png" id="plot" />
+</center>
+
+</body>
