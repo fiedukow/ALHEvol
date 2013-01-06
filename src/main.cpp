@@ -10,6 +10,7 @@
 #include "MultiDimPoint.hpp"
 #include "Stopper.hpp"
 #include "MyPopulation.hpp"
+#include "MyPopulation2.hpp"
 
 int main(int /*argc*/, char** /*argv*/)
 {
@@ -28,7 +29,7 @@ int main(int /*argc*/, char** /*argv*/)
 
   FunctionValue goal(20.1945, gauss); 
   evol::SubjectPtr prototype((evol::Subject*) new MultiDimPoint(2, gauss));
-  MyPopulation pop((FitnessFunction&) goal, prototype, 2500, 0.4, 2.0);
+  MyPopulation2 pop((FitnessFunction&) goal, prototype, 2500, 0.4, 2.0);
   pop.registerObserver( NObserverPtr( new PodgladPostepu() ) );
 
   Stopper stopper(pop);
