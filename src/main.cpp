@@ -9,6 +9,7 @@
 #include "PointValue.hpp"
 #include "MultiDimPoint.hpp"
 #include "Stopper.hpp"
+#include "MyPopulation.hpp"
 
 int main(int /*argc*/, char** /*argv*/)
 {
@@ -16,7 +17,7 @@ int main(int /*argc*/, char** /*argv*/)
   double g1ex[] = {-1, -1};
   mgds.push_back(MyGaussDescription(1.0, 1.0, 2, g1ex));
   double g2ex[] = {1, 1};
-  mgds.push_back(MyGaussDescription(2.2, 2.5, 2, g2ex));
+  mgds.push_back(MyGaussDescription(2.2, 2.8, 2, g2ex));
   
   MultiDimGauss gauss(mgds);
 
@@ -25,9 +26,9 @@ int main(int /*argc*/, char** /*argv*/)
   gauss.saveAsGridData("presentation/data/gauss.dat", 3, 0.05);
   std::cout << "Grid data file generated." << std::endl << std::endl;
 
-  FunctionValue goal(0.1945, gauss); 
+  FunctionValue goal(20.1945, gauss); 
   evol::SubjectPtr prototype((evol::Subject*) new MultiDimPoint(2, gauss));
-  evol::Population pop((FitnessFunction&) goal, prototype, 2500, 0.2, 2.0);
+  MyPopulation pop((FitnessFunction&) goal, prototype, 2500, 0.2, 2.0);
   pop.registerObserver( NObserverPtr( new PodgladPostepu() ) );
 
   Stopper stopper(pop);
