@@ -29,8 +29,10 @@ ChromosomePtr PointValue::crossWith(ChromosomePtr toCross) const
 
 void PointValue::mutate()
 {
-  double factor = EvolFunctions::gaussRandom(0, 1);
-  value += value * factor;
+  double factor = EvolFunctions::gaussRandom(0, 0.5);
+  value += factor;
+//  value += value * factor;
+//  value += factor/2;
   value = ensureValueInRange(value);
 }
 
