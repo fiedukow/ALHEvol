@@ -1,11 +1,14 @@
 #include <iostream>
 #include <vector>
+#include <boost/thread/thread.hpp>
+
 #include "PodgladPostepu.hpp"
 #include <evol/Evol.hpp>
 #include "FunctionValue.hpp"
 #include "MultiDimGauss.hpp"
 #include "PointValue.hpp"
 #include "MultiDimPoint.hpp"
+#include "Stopper.hpp"
 
 int main(int /*argc*/, char** /*argv*/)
 {
@@ -27,6 +30,8 @@ int main(int /*argc*/, char** /*argv*/)
   evol::Population pop((FitnessFunction&) goal, prototype, 2500, 0.2, 2.0);
   pop.registerObserver( NObserverPtr( new PodgladPostepu() ) );
 
+  Stopper stopper(pop);
+  boost::thread stThread(stopper);
   pop.start()->print();
   return 0;
 }
