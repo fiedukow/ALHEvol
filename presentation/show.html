@@ -2,16 +2,31 @@
 <title>ALHEvol</title>
 <script>
 var i = 1;
+var lastOK = 1;
+
+function checkImage(src)
+{
+  var img = new Image();
+  img.onload = function() {
+    lastOK = i;
+  };
+  img.onerror = function() {
+    i = lastOK;
+    updatePlot();
+  };
+
+  img.src = src; // fires off loading of image
+}
 
 function updatePlot()
 {
   var name = "generation_" + i + ".png";
   var toUpdate =  document.getElementById('plot');
   var nbr =  document.getElementById('nb');
+  checkImage(name);
   toUpdate.src = name;
   nbr.value = i;
 }
-
 </script>
 </head>
 
