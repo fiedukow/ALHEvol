@@ -3,6 +3,20 @@
 <script>
 var i = 1;
 var lastOK = 1;
+var auto = false;
+var hasInQueue = false;
+
+function autoSwap()
+{
+  auto = !auto;
+  var button = document.getElementById('slideButton');
+  if(auto)
+    button.value = "slideshowOff";
+  else
+    button.value = "slideshowOn ";
+
+  updatePlot();
+}
 
 function checkImage(src)
 {
@@ -18,6 +32,18 @@ function checkImage(src)
   img.src = src; // fires off loading of image
 }
 
+function nextPlot()
+{
+  hasInQueue = false
+  if(!auto)
+  {
+    return;
+  }
+
+  ++i;
+  updatePlot();
+}
+
 function updatePlot()
 {
   var name = "data/generation_" + i + ".png";
@@ -26,6 +52,14 @@ function updatePlot()
   checkImage(name);
   toUpdate.src = name;
   nbr.value = i;
+  if(auto)
+  {
+    if(!hasInQueue)
+    {
+      hasInQueue = true;
+      setTimeout(nextPlot, 500);
+    }
+  }
 }
 </script>
 </head>
@@ -35,6 +69,7 @@ function updatePlot()
 <input type=button onClick="i--; if(i<1) i=1; updatePlot();" value="<">
 <input type=input onChange="i=this.value; updatePlot();" value=1 id="nb">
 <input type=button onClick="i++; updatePlot();" value=">">
+<input type=button onClick="autoSwap();" value="slideshowOn " id="slideButton">
 <hr>
 <img src="data/generation_1.png" id="plot" />
 </center>
