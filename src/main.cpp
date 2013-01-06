@@ -22,7 +22,7 @@ int main(int /*argc*/, char** /*argv*/)
   gauss.saveAsGridData("presentation/gauss.dat", 3, 0.01);
   std::cout << "Grid data file generated." << std::endl << std::endl;
 
-  FunctionValue goal(0.1944, gauss); 
+  FunctionValue goal(0.1945, gauss); 
   evol::SubjectPtr prototype((evol::Subject*) new MultiDimPoint(2, gauss));
   evol::Population pop((FitnessFunction&) goal, prototype, 2500, 0.2, 2.0);
   pop.registerObserver( NObserverPtr( new PodgladPostepu() ) );
