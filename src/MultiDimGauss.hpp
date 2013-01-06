@@ -2,6 +2,7 @@
 #include <gsl/gsl_vector.h>
 #include <gsl/gsl_matrix.h>
 #include <vector>
+#include <string>
 
 struct MyGaussDescription
 {
@@ -23,6 +24,9 @@ public:
   ~MultiDimGauss();
 
   double getValueForVector(gsl_vector* point) const;
+  void saveAsGridData(const std::string& targetFile,
+                      double range,
+                      double res) const;
 
 private:
   std::vector<gsl_matrix*> covarianceMatrixes;

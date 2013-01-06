@@ -1,6 +1,7 @@
 #include "MultiDimGauss.hpp"
 #include <gsl_addons/rmv.h>
 #include <cassert>
+#include <fstream>
 
 MyGaussDescription::MyGaussDescription(double covarianceFactor,
                                        double heightFactor,
@@ -68,5 +69,36 @@ double MultiDimGauss::getValueForVector(gsl_vector* point) const
   }
 
   return result;
+}
+
+void MultiDimGauss::saveAsGridData(const std::string& targetFile,
+                                   double range,
+                                   double res) const
+{
+  if(!(expectedValues.size() > 0 && expectedValues[0]->size == 2))
+    return; //grid are only saved for 2D gauss
+
+  std::fstream output;
+  output.open(targetFile, std::fstream::out);
+  assert(output.good());
+  int samples = range/res + 1;
+  samples *= 2;
+  gsl_vector* v = gsl_vector_alloc(2);
+
+  for(int i = 0; i < samples; ++i)
+  {
+    for(int j = 0; j < samples; ++j)
+    {
+      double cx = -range+i*res;
+      double cy = -range+j*res;
+      gsl_vector_set(v, 0, cx);
+      gsl_vector_set(v, 1, cy);
+      double value = getValueForVector(v);
+      output << cx << " " << cy << " " << value << std::endl;
+    }
+    output << std::endl;
+  }
+  output.close();
+  gsl_vector_free(v);
 }
 
