@@ -1,0 +1,5 @@
+#!/bin/sh
+rm -f presentation/data/subjects_*
+rm -f presentation/data/generation_*
+rm presentation/data/cont.dat
+rm presentation/data/gauss.dat
