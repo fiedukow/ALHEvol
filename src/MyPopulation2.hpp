@@ -3,7 +3,7 @@
 
 using namespace evol;
 
-class MyPopulation22 : public Population
+class MyPopulation2 : public Population
 {
 public:
   MyPopulation2(const FitnessFunction &goal_,
