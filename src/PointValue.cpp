@@ -5,7 +5,7 @@
 const double PointValue::maxRange = 3;
 
 PointValue::PointValue()
-  : value(-3/*(EvolFunctions::random()-0.1*maxRange)*10*/) //-5 to 5
+  : value((EvolFunctions::random()-0.1*maxRange)*10) //-5 to 5
 {
 }
 
@@ -29,7 +29,7 @@ ChromosomePtr PointValue::crossWith(ChromosomePtr toCross) const
 
 void PointValue::mutate()
 {
-  double factor = EvolFunctions::gaussRandom(0, 1.5);
+  double factor = EvolFunctions::gaussRandom(0, 0.3);
   value += factor;
 //  value += value * factor;
 //  value += factor/2;
@@ -43,9 +43,9 @@ double PointValue::getValue() const
 
 double PointValue::ensureValueInRange(double v)
 {
-  if(v > maxRange)
+/*  if(v > maxRange)
     return maxRange;
   if(v < -maxRange)
-    return -maxRange;
+    return -maxRange;*/
   return v;
 }
