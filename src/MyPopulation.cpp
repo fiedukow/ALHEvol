@@ -4,6 +4,9 @@
 #include <evol/EvolFunctions.hpp>
 #include <iostream>
 
+/*1 means +1 chance per position, 0.1 means +10 chances per position*/
+#define CHANCES_FACTOR 1
+
 MyPopulation::MyPopulation(const FitnessFunction &goal_,
                            const SubjectPtr prototype_,
                            unsigned int populationSize_,
@@ -21,13 +24,13 @@ int MyPopulation::getTotalChancesNumber()
 {
   int result = subjects.size()+1;
   result*=subjects.size();
-  result/=2;
+  result/=2*CHANCES_FACTOR;
   return result;
 }
 
 int MyPopulation::winnerIndex(int winnerChance)
 {
-  int wi = ceil(1.0/2.0*(sqrt(8*((double)winnerChance)+1)-1));
+  int wi = ceil(1.0/2.0*(sqrt(CHANCES_FACTOR*8.0*((double)winnerChance)+1)-1));
   wi = (subjects.size()) - wi;
   return wi;
 }

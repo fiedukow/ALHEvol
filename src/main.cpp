@@ -29,7 +29,7 @@ int main(int /*argc*/, char** /*argv*/)
 
   FunctionValue goal(220.87747, gauss); 
   evol::SubjectPtr prototype((evol::Subject*) new MultiDimPoint(2, gauss));
-  MyPopulation pop((FitnessFunction&) goal, prototype, 5000, 0.3, 2.0);
+  MyPopulation pop((FitnessFunction&) goal, prototype, 5000, 0.45, 2.0);
   pop.registerObserver( NObserverPtr( new PodgladPostepu() ) );
 
   Stopper stopper(pop);
