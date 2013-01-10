@@ -15,10 +15,13 @@
 int main(int /*argc*/, char** /*argv*/)
 {
   std::vector<MyGaussDescription> mgds;
-  double g1ex[] = {-1.5, 0};
+  double g1ex[] = {-1.5, -1.5};
   mgds.push_back(MyGaussDescription(1.0, 1.2, 2, g1ex));
-  double g2ex[] = {1.5, 0};
+  double g2ex[] = {0, 0};
   mgds.push_back(MyGaussDescription(0.2, 1.1, 2, g2ex));
+  double g3ex[] = {1.5, 1.5};
+  mgds.push_back(MyGaussDescription(0.2, 3.5, 2, g3ex));
+  
   
   MultiDimGauss gauss(mgds);
 
@@ -27,9 +30,9 @@ int main(int /*argc*/, char** /*argv*/)
   gauss.saveAsGridData("presentation/data/gauss.dat", 3, 0.05);
   std::cout << "Grid data file generated." << std::endl << std::endl;
 
-  FunctionValue goal(220.87747, gauss); 
+  FunctionValue goal(2200.87747, gauss); 
   evol::SubjectPtr prototype((evol::Subject*) new MultiDimPoint(2, gauss));
-  MyPopulation pop((FitnessFunction&) goal, prototype, 5000, 0.45, 2.0);
+  MyPopulation pop((FitnessFunction&) goal, prototype, 1000, 0.5, 2.0);
   pop.registerObserver( NObserverPtr( new PodgladPostepu() ) );
 
   Stopper stopper(pop);

@@ -5,7 +5,7 @@
 #include <iostream>
 
 /*1 means +1 chance per position, 0.1 means +10 chances per position*/
-#define CHANCES_FACTOR 1
+#define CHANCES_FACTOR 0.3
 
 MyPopulation::MyPopulation(const FitnessFunction &goal_,
                            const SubjectPtr prototype_,
