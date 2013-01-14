@@ -115,3 +115,7 @@ const FitnessFunction& MyPopulation::getGoal() const
   return goal;
 }
 
+double MyPopulation::getMVariance() const
+{
+  return EvolFunctions::ptr_cast<SubjectPtr, MultiDimPoint>(subjects[1])->getMVariance();
+}

@@ -18,6 +18,7 @@ public:
   void sortSubjects();
   
   const FitnessFunction& getGoal() const;
+  double getMVariance() const;
 
 protected:
   virtual void selectSubjects();

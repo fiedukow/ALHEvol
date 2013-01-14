@@ -19,5 +19,6 @@ private:
 
     boost::optional<double> bestFValue;
     unsigned int populationCounter;
+    double lastResult[10];
 }; 
 

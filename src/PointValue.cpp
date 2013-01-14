@@ -4,13 +4,15 @@
 
 const double PointValue::maxRange = 3;
 
-PointValue::PointValue()
-  : value(-3/*(EvolFunctions::random()-0.1*maxRange)*10*/) //-5 to 5
+PointValue::PointValue(double mVariance)
+  : value(-3/*(EvolFunctions::random()-0.1*maxRange)*10*/), //-5 to 5
+    mVariance_(mVariance)
 {
 }
 
-PointValue::PointValue(double value)
-  : value(value)
+PointValue::PointValue(double mVariance, double value)
+  : value(value),
+    mVariance_(mVariance)
 {
 }
 
@@ -24,15 +26,13 @@ ChromosomePtr PointValue::crossWith(ChromosomePtr toCross) const
   double childValue = this->value*(randomFactor);
   childValue += toCrossPV->value*(1 - randomFactor);
   childValue = ensureValueInRange(childValue);
-  return PointValuePtr(new PointValue(childValue));
+  return PointValuePtr(new PointValue(mVariance_, childValue));
 }
 
 void PointValue::mutate()
 {
-  double factor = EvolFunctions::gaussRandom(0, 0.5);
+  double factor = EvolFunctions::gaussRandom(0, mVariance_);
   value += factor;
-//  value += value * factor;
-//  value += factor/2;
   value = ensureValueInRange(value);
 }
 
@@ -48,12 +48,8 @@ void PointValue::setValue(double val)
 
 double PointValue::ensureValueInRange(double v)
 {
-/*  if(v > maxRange)
-    return maxRange;
-  if(v < -maxRange)
-    return -maxRange;
-  return v;*/
-  if(v <= maxRange && v >= -maxRange)
+/*  if(v <= maxRange && v >= -maxRange)
     return v;
-  return (EvolFunctions::random()-0.1*maxRange)*10;
+  return (EvolFunctions::random()-0.1*maxRange)*10;*/
+  return v;
 }

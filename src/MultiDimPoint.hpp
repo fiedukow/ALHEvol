@@ -13,7 +13,7 @@ using namespace evol;
 class MultiDimPoint : public Subject
 {
   public:
-  MultiDimPoint(int dimensionsCount, const MultiDimGauss& ff); 
+  MultiDimPoint(int dimensionsCount, const MultiDimGauss& ff, double mVariance); 
 
   virtual void setInitialValue();
   virtual SubjectPtr clone() const;
@@ -24,11 +24,13 @@ class MultiDimPoint : public Subject
   void setPosition(std::vector<double> pos);
 
   double getFunctionValue() const;
+  double getMVariance() const;
 
   virtual void print() const;
 
   private:
   int dimensionsCount;
   const MultiDimGauss& ff;
+  double mVariance_;
 };
 

@@ -6,9 +6,10 @@
 #include <cassert>
 #include <iostream>
 
-MultiDimPoint::MultiDimPoint(int dimensionsCount, const MultiDimGauss& ff)
+MultiDimPoint::MultiDimPoint(int dimensionsCount, const MultiDimGauss& ff, double mVariance)
   : dimensionsCount(dimensionsCount),
-    ff(ff)
+    ff(ff),
+    mVariance_(mVariance)
 {
   setInitialValue();
 }
@@ -17,17 +18,18 @@ void MultiDimPoint::setInitialValue()
 {
   clearChromosomes();
   for(int i = 0; i < dimensionsCount; ++i)
-    addChromosome(ChromosomePtr(new PointValue()));
+    addChromosome(ChromosomePtr(new PointValue(mVariance_)));
 }
 
 SubjectPtr MultiDimPoint::clone() const
 {
-  SubjectPtr newMultiDimPoint(new MultiDimPoint(dimensionsCount, ff));
+  SubjectPtr newMultiDimPoint(new MultiDimPoint(dimensionsCount, ff, mVariance_));
   for(int i = 0; i < dimensionsCount; ++i)
   {
     newMultiDimPoint->addChromosome(
       ChromosomePtr(
         new PointValue(
+          mVariance_,
           getDimensionValue(i)
         )
       )
@@ -59,6 +61,11 @@ double MultiDimPoint::getFunctionValue() const
   FunctionValue fv(0, ff);
   fv.calculate(*this);
   return fv.getValue();
+}
+
+double MultiDimPoint::getMVariance() const
+{
+  return mVariance_;
 }
 
 void MultiDimPoint::print() const

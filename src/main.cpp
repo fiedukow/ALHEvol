@@ -12,7 +12,7 @@
 #include "MyPopulation.hpp"
 #include "MyPopulation2.hpp"
 
-int main(int /*argc*/, char** /*argv*/)
+int main(int argc, char** argv)
 {
   std::vector<MyGaussDescription> mgds;
   double g1ex[] = {-1.5, -1.5};
@@ -21,7 +21,13 @@ int main(int /*argc*/, char** /*argv*/)
   mgds.push_back(MyGaussDescription(0.2, 1.1, 2, g2ex));
   double g3ex[] = {1.5, 1.5};
   mgds.push_back(MyGaussDescription(0.2, 3.5, 2, g3ex));
-  
+
+  double mVariance = 0.33;
+  if(argc > 1)
+  {
+    std::cout << atof(argv[1]) << std::endl;
+    mVariance = atof(argv[1]);
+  }
   
   MultiDimGauss gauss(mgds);
 
@@ -31,12 +37,13 @@ int main(int /*argc*/, char** /*argv*/)
   std::cout << "Grid data file generated." << std::endl << std::endl;
 
   FunctionValue goal(2200.87747, gauss); 
-  evol::SubjectPtr prototype((evol::Subject*) new MultiDimPoint(2, gauss));
+  evol::SubjectPtr prototype((evol::Subject*) new MultiDimPoint(2, gauss, mVariance));
   MyPopulation pop((FitnessFunction&) goal, prototype, 1000, 0.5, 2.0);
   pop.registerObserver( NObserverPtr( new PodgladPostepu() ) );
 
   Stopper stopper(pop);
-  boost::thread stThread(stopper);
-  pop.start()->print();
+/*  boost::thread stThread(stopper);
+  pop.start()->print();*/
+  pop.start();
   return 0;
 }

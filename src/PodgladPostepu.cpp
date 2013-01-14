@@ -23,21 +23,6 @@ void PodgladPostepu::update( evol::Population& population )
     );
 
     ++populationCounter;
-    std::cout << std::endl << "Pokolenie nr. "<< populationCounter << std::endl;
-
-    {
-      const MyPopulation& myPop = dynamic_cast<const MyPopulation&>(population);
-      std::vector<double> avg = myPop.averagePoint();
-      std::cout << "Srodek masy: ";
-      int cnt = 0;
-      for(double i : avg)
-        std::cout << i << ((cnt++ > 0) ? ", " : ";");
-      std::cout << std::endl;
-      FunctionValue fv = dynamic_cast<const FunctionValue&>(myPop.getGoal());
-      MultiDimPoint p(avg.size(), fv.getGauss());
-      p.setPosition(avg);
-      std::cout << "Wartosc " << p.getFunctionValue() << std::endl;
-    }
 
 
     double current = best->getFunctionValue();
@@ -58,6 +43,35 @@ void PodgladPostepu::update( evol::Population& population )
     std::stringstream ss;
     ss << "./presentation/genGenerationPng " << populationCounter << "";
     system(ss.str().c_str());
+    }
+
+    if(populationCounter >= 240)
+    {
+      std::cout << std::endl << "Pokolenie nr. "<< populationCounter << std::endl;
+
+      const MyPopulation& myPop = dynamic_cast<const MyPopulation&>(population);
+      std::vector<double> avg = myPop.averagePoint();
+      std::cout << "Srodek masy: ";
+      int cnt = 0;
+      for(double i : avg)
+        std::cout << i << ((cnt++ > 0) ? ", " : ";");
+      std::cout << std::endl;
+      FunctionValue fv = dynamic_cast<const FunctionValue&>(myPop.getGoal());
+      MultiDimPoint p(avg.size(), fv.getGauss(), 0.0);    
+      p.setPosition(avg);    
+      lastResult[populationCounter-240] = p.getFunctionValue();
+
+      if(populationCounter == 250)
+      {
+        population.stopLoop();
+        double avg = 0;
+        for(int i = 0; i < 10; ++i)
+        {
+          avg += lastResult[i];
+        }
+        avg/=10;
+        std::cout << "R: " << myPop.getMVariance() << " " << avg << std::endl;  
+      }
     }
 }
 
