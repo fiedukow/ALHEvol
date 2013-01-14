@@ -5,7 +5,7 @@
 const double PointValue::maxRange = 3;
 
 PointValue::PointValue()
-  : value((EvolFunctions::random()-0.1*maxRange)*10) //-5 to 5
+  : value(-3/*(EvolFunctions::random()-0.1*maxRange)*10*/) //-5 to 5
 {
 }
 
@@ -39,6 +39,11 @@ void PointValue::mutate()
 double PointValue::getValue() const
 {
   return value;
+}
+
+void PointValue::setValue(double val)
+{
+  value = val;
 }
 
 double PointValue::ensureValueInRange(double v)

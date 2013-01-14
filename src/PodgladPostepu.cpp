@@ -1,7 +1,9 @@
 #include "PodgladPostepu.hpp"
+#include "MyPopulation.hpp"
 #include <evol/EvolFunctions.hpp>
 #include <evol/Subject.hpp>
 #include "MultiDimPoint.hpp"
+#include "FunctionValue.hpp"
 
 #include <iostream>
 #include <fstream>
@@ -19,7 +21,25 @@ void PodgladPostepu::update( evol::Population& population )
     MultiDimPoint* best = evol::EvolFunctions::ptr_cast<SubjectPtr, MultiDimPoint>(
             population.getSubjects().at( population.getBestId() )
     );
+
     ++populationCounter;
+    std::cout << std::endl << "Pokolenie nr. "<< populationCounter << std::endl;
+
+    {
+      const MyPopulation& myPop = dynamic_cast<const MyPopulation&>(population);
+      std::vector<double> avg = myPop.averagePoint();
+      std::cout << "Srodek masy: ";
+      int cnt = 0;
+      for(double i : avg)
+        std::cout << i << ((cnt++ > 0) ? ", " : ";");
+      std::cout << std::endl;
+      FunctionValue fv = dynamic_cast<const FunctionValue&>(myPop.getGoal());
+      MultiDimPoint p(avg.size(), fv.getGauss());
+      p.setPosition(avg);
+      std::cout << "Wartosc " << p.getFunctionValue() << std::endl;
+    }
+
+
     double current = best->getFunctionValue();
     if( !bestFValue || current > bestFValue )
     {
@@ -27,11 +47,6 @@ void PodgladPostepu::update( evol::Population& population )
         std::cout << "Poprawil sie wynik najlepszego osobnika."<< std::endl;
         std::cout << "Obecny wynik (pokolenie nr. " << populationCounter << ") to: " << std::endl;
         best->print();
-        std::cout << std::endl;
-    }
-    else if( populationCounter%100 == 0 )
-    {
-        std::cout << "Pokolenie nr. "<< populationCounter << std::endl << std::endl; 
     }
     {
     std::stringstream ss;

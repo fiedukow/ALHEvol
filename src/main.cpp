@@ -17,7 +17,7 @@ int main(int /*argc*/, char** /*argv*/)
   std::vector<MyGaussDescription> mgds;
   double g1ex[] = {-1.5, -1.5};
   mgds.push_back(MyGaussDescription(1.0, 1.2, 2, g1ex));
-  double g2ex[] = {0, 0};
+  double g2ex[] = {-0.5, 0.5};
   mgds.push_back(MyGaussDescription(0.2, 1.1, 2, g2ex));
   double g3ex[] = {1.5, 1.5};
   mgds.push_back(MyGaussDescription(0.2, 3.5, 2, g3ex));

@@ -42,6 +42,11 @@ double FunctionValue::getValue() const
   return value;
 }
 
+const MultiDimGauss& FunctionValue::getGauss() const
+{
+  return fitnessFunction;
+}
+
 void FunctionValue::print() const
 {
   std::cout << "Wartosc funkcji: " << value << std::endl;

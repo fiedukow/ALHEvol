@@ -20,6 +20,8 @@ class MultiDimPoint : public Subject
 
   int getDimensionsCount() const;
   double getDimensionValue(int dim) const;
+  
+  void setPosition(std::vector<double> pos);
 
   double getFunctionValue() const;
 

@@ -1,4 +1,5 @@
 #include "MyPopulation.hpp"
+#include "MultiDimPoint.hpp"
 #include <cmath>
 #include <algorithm>
 #include <evol/EvolFunctions.hpp>
@@ -27,6 +28,31 @@ int MyPopulation::getTotalChancesNumber()
   result/=2*CHANCES_FACTOR;
   return result;
 }
+
+std::vector<double> MyPopulation::averagePoint() const
+{
+  std::vector<double> result;
+  if(subjects.size() == 0)
+    return result;
+
+  int nDim = EvolFunctions::ptr_cast<SubjectPtr, MultiDimPoint>(subjects[0])->getDimensionsCount();
+  for(int i = 0; i < nDim; ++i)
+    result.push_back(0);
+
+  int cnt = 0;
+  for( SubjectPtr sub : subjects )
+  {
+    MultiDimPoint* curr = EvolFunctions::ptr_cast<SubjectPtr, MultiDimPoint>(sub);
+    for(int i = 0; i < nDim; ++i)
+    {
+      result[i] *= cnt;
+      result[i] += curr->getDimensionValue(i);
+      result[i] /= ++cnt;
+    }
+  }
+  return result;
+}
+
 
 int MyPopulation::winnerIndex(int winnerChance)
 {
@@ -83,3 +109,9 @@ void MyPopulation::selectSubjects()
   
   selected.swap(subjects);
 }
+
+const FitnessFunction& MyPopulation::getGoal() const
+{
+  return goal;
+}
+

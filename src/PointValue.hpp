@@ -17,6 +17,7 @@ public:
     virtual void mutate();
 
     double getValue() const;
+    void setValue(double);
 
     static const double maxRange;
   

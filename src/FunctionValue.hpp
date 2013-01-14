@@ -17,6 +17,7 @@ public:
   virtual std::unique_ptr< FitnessFunction > clone() const;
 
   double getValue() const;
+  const MultiDimGauss& getGauss() const;
 
   virtual void print() const;
   

@@ -12,9 +12,12 @@ public:
                double mutationChance_,
                double crossFactor_ );
   
+  std::vector<double> averagePoint() const;
   int getTotalChancesNumber();
   int winnerIndex(int winnerChance);
   void sortSubjects();
+  
+  const FitnessFunction& getGoal() const;
 
 protected:
   virtual void selectSubjects();

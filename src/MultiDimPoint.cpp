@@ -3,6 +3,7 @@
 #include <evol/Chromosome.hpp>
 #include <evol/EvolFunctions.hpp>
 
+#include <cassert>
 #include <iostream>
 
 MultiDimPoint::MultiDimPoint(int dimensionsCount, const MultiDimGauss& ff)
@@ -46,6 +47,13 @@ double MultiDimPoint::getDimensionValue(int dim) const
   return EvolFunctions::ptr_cast<ChromosomePtr, PointValue>(getChromosome(dim))->getValue();
 }
 
+void MultiDimPoint::setPosition(std::vector<double> pos)
+{
+  assert((int)pos.size() == getDimensionsCount());
+  for(int i = 0; i < (int)pos.size(); ++i)
+    EvolFunctions::ptr_cast<ChromosomePtr, PointValue>(getChromosome(i))->setValue(pos[i]);
+}
+
 double MultiDimPoint::getFunctionValue() const
 {
   FunctionValue fv(0, ff);
@@ -61,3 +69,5 @@ void MultiDimPoint::print() const
   std::cout << std::endl;
   std::cout << "Wynik: " << getFunctionValue() << std::endl;
 }
+
+
