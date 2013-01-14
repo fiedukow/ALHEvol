@@ -27,7 +27,7 @@ void FunctionValue::calculate(const Subject& toCalculate)
   gsl_vector* dimValues = gsl_vector_alloc(subject.getDimensionsCount());
   for(int i = 0; i < subject.getDimensionsCount(); ++i)
     gsl_vector_set(dimValues, i, subject.getDimensionValue(i));
-  
+
   value = fitnessFunction.getValueForVector(dimValues);
   gsl_vector_free(dimValues);
 }

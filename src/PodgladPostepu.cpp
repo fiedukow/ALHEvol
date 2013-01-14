@@ -33,7 +33,7 @@ void PodgladPostepu::update( evol::Population& population )
         std::cout << "Obecny wynik (pokolenie nr. " << populationCounter << ") to: " << std::endl;
         best->print();
     }
-    {
+/*    {
     std::stringstream ss;
     ss << "presentation/data/" << "subjects_" <<  populationCounter << ".dat";
     saveSubjectsSnapshot(ss.str(), population);
@@ -43,9 +43,16 @@ void PodgladPostepu::update( evol::Population& population )
     std::stringstream ss;
     ss << "./presentation/genGenerationPng " << populationCounter << "";
     system(ss.str().c_str());
-    }
+    }*/
 
-    if(populationCounter >= 240)
+    const MyPopulation& myPop = dynamic_cast<const MyPopulation&>(population);
+    std::vector<double> avg = myPop.averagePoint();
+    std::cout << "Jestem obok ";
+    for(double i : avg)
+      std::cout << i << " ";
+    std::cout << std::endl;
+
+    if(populationCounter >= 490)
     {
       std::cout << std::endl << "Pokolenie nr. "<< populationCounter << std::endl;
 
@@ -59,9 +66,9 @@ void PodgladPostepu::update( evol::Population& population )
       FunctionValue fv = dynamic_cast<const FunctionValue&>(myPop.getGoal());
       MultiDimPoint p(avg.size(), fv.getGauss(), 0.0);    
       p.setPosition(avg);    
-      lastResult[populationCounter-240] = p.getFunctionValue();
+      lastResult[populationCounter-490] = p.getFunctionValue();
 
-      if(populationCounter == 250)
+      if(populationCounter == 500)
       {
         population.stopLoop();
         double avg = 0;

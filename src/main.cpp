@@ -15,12 +15,15 @@
 int main(int argc, char** argv)
 {
   std::vector<MyGaussDescription> mgds;
-  double g1ex[] = {-1.5, -1.5};
-  mgds.push_back(MyGaussDescription(1.0, 1.2, 2, g1ex));
-  double g2ex[] = {-0.5, 0.5};
-  mgds.push_back(MyGaussDescription(0.2, 1.1, 2, g2ex));
-  double g3ex[] = {1.5, 1.5};
-  mgds.push_back(MyGaussDescription(0.2, 3.5, 2, g3ex));
+  double g1ex[] = {-1.5, -1.5, -1.5, -1.5, -1.5,
+                   -1.5, -1.5, -1.5, -1.5, -1.5};
+  mgds.push_back(MyGaussDescription(1.0, 12.0, 10, g1ex));
+  double g2ex[] = {-0.5, 0.5, -0.5, 0.5, -0.5,
+                   0.5, -0.5, 0.5, -0.5, 0.5 };
+  mgds.push_back(MyGaussDescription(0.2, 11.0, 10, g2ex));
+  double g3ex[] = {1.5, 1.5, 1.5, 1.5, 1.5, 
+                   1.5, 1.5, 1.5, 1.5, 1.5 }; 
+  mgds.push_back(MyGaussDescription(0.2, 35.0, 10, g3ex));
 
   double mVariance = 0.33;
   if(argc > 1)
@@ -30,14 +33,15 @@ int main(int argc, char** argv)
   }
   
   MultiDimGauss gauss(mgds);
-
+/*
   std::cout << "Generating gauss.dat - grid data file for gnuplot with"
             << " fitness function values..." << std::endl;
   gauss.saveAsGridData("presentation/data/gauss.dat", 3, 0.05);
   std::cout << "Grid data file generated." << std::endl << std::endl;
+*/
 
   FunctionValue goal(2200.87747, gauss); 
-  evol::SubjectPtr prototype((evol::Subject*) new MultiDimPoint(2, gauss, mVariance));
+  evol::SubjectPtr prototype((evol::Subject*) new MultiDimPoint(10, gauss, mVariance));
   MyPopulation pop((FitnessFunction&) goal, prototype, 1000, 0.5, 2.0);
   pop.registerObserver( NObserverPtr( new PodgladPostepu() ) );
 

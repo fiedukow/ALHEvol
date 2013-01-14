@@ -2,6 +2,7 @@
 #include <gsl_addons/rmv.h>
 #include <cassert>
 #include <fstream>
+#include <iostream>
 
 MyGaussDescription::MyGaussDescription(double covarianceFactor,
                                        double heightFactor,
