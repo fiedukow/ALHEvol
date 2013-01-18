@@ -6,7 +6,7 @@
 #include <iostream>
 
 /*1 means +1 chance per position, 0.1 means +10 chances per position*/
-#define CHANCES_FACTOR 0.3
+#define CHANCES_FACTOR 1.0
 
 MyPopulation::MyPopulation(const FitnessFunction &goal_,
                            const SubjectPtr prototype_,
@@ -39,17 +39,16 @@ std::vector<double> MyPopulation::averagePoint() const
   for(int i = 0; i < nDim; ++i)
     result.push_back(0);
 
-  int cnt = 0;
   for( SubjectPtr sub : subjects )
   {
     MultiDimPoint* curr = EvolFunctions::ptr_cast<SubjectPtr, MultiDimPoint>(sub);
     for(int i = 0; i < nDim; ++i)
-    {
-      result[i] *= cnt;
       result[i] += curr->getDimensionValue(i);
-      result[i] /= ++cnt;
-    }
   }
+
+  for(int i = 0; i < nDim; ++i)
+    result[i] /= subjects.size();
+
   return result;
 }
 
