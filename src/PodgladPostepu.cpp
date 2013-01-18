@@ -52,7 +52,7 @@ void PodgladPostepu::update( evol::Population& population )
       std::cout << i << " ";
     std::cout << std::endl;
 
-    if(populationCounter >= 490)
+    if(populationCounter >= MAX_GENERATION-LAST_AVG)
     {
       std::cout << std::endl << "Pokolenie nr. "<< populationCounter << std::endl;
 
@@ -66,17 +66,17 @@ void PodgladPostepu::update( evol::Population& population )
       FunctionValue fv = dynamic_cast<const FunctionValue&>(myPop.getGoal());
       MultiDimPoint p(avg.size(), fv.getGauss(), 0.0);    
       p.setPosition(avg);    
-      lastResult[populationCounter-490] = p.getFunctionValue();
+      lastResult[populationCounter-(MAX_GENERATION-LAST_AVG)] = p.getFunctionValue();
 
-      if(populationCounter == 500)
+      if(populationCounter == MAX_GENERATION)
       {
         population.stopLoop();
         double avg = 0;
-        for(int i = 0; i < 10; ++i)
+        for(int i = 0; i < LAST_AVG; ++i)
         {
           avg += lastResult[i];
         }
-        avg/=10;
+        avg/=LAST_AVG;
         std::cout << "R: " << myPop.getMVariance() << " " << avg << std::endl;  
       }
     }

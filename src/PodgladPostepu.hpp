@@ -6,6 +6,9 @@
 
 #include <string>
 
+#define MAX_GENERATION 250
+#define LAST_AVG 10
+
 class PodgladPostepu : public evol::NewGenerationObserver
 {
 public:
