@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-for ($v = 0.0; $v <= 3.0; $v+=0.1) {
+for ($v = 3.0; $v <= 4.0; $v+=0.1) {
   system('./cnr '.$v.' > results/res'.$v);
   system('cat results/res'.$v.' | grep R: | awk \'{print $2" "$3}\' >> WYNIKI');
 }
