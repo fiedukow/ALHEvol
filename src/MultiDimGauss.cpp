@@ -43,6 +43,7 @@ MultiDimGauss::MultiDimGauss(std::vector<MyGaussDescription> hills)
 MultiDimGauss::~MultiDimGauss()
 {
   //FIXME - memory leak here
+  #warning Memory leak in MultiDimGauss - gsl objects are no deleted.
 }
 
 double MultiDimGauss::getValueForVector(gsl_vector* point) const
