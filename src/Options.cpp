@@ -2,6 +2,7 @@
 #include <fstream>
 #include <gsl/gsl_vector.h>
 #include <cassert>
+#include <iostream>
 
 Options* Options::I = NULL;
 
@@ -45,6 +46,20 @@ Options::Options(const char* fileName)
   ff_ = new MultiDimGauss(mgds);
 
   in.close();
+
+  std::cout << "=== Options obtained ===" << std::endl;
+  std::cout << "Run stop thread: " << runStopThread_ << std::endl;
+  std::cout << "Goal value: " << goalValue_ << std::endl;
+  std::cout << "Dimensions: " << dims_ << std::endl;
+  std::cout << "Hills count: " << hillsCount_ << std::endl;
+  std::cout << "Sum/Max: " << ((sumOrMax_) ? "SUM" : "MAX") << std::endl;
+  std::cout << "Max generations: " << maxGenerations_ << std::endl;
+  std::cout << "Last generations smooth: " << smoothResultGenerations_ << std::endl;
+  std::cout << "Population size: " << populationSize_ << std::endl;
+  std::cout << "Mutation factor: " << mutationFactor_ << std::endl;
+  std::cout << "Cross factor: " << crossFactor_ << std::endl;
+  std::cout << "Mutation variance: " << mutationVariance_ << std::endl;
+  std::cout << "== End of options ===" << std::endl;
 }
 
 Options::~Options()
