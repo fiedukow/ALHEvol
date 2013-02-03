@@ -42,21 +42,7 @@ MultiDimGauss::MultiDimGauss(std::vector<MyGaussDescription> hills)
 
 MultiDimGauss::~MultiDimGauss()
 {
-/*  
-  for(std::vector<gsl_matrix*>::const_iterator i = covarianceMatrixes.begin();
-      i != covarianceMatrixes.end();
-      ++i)
-  {
-    gsl_matrix_free(*i);
-  }
-  
-  for(std::vector<gsl_vector*>::const_iterator i = expectedValues.begin();
-      i != expectedValues.end();
-      ++i)
-  {
-    gsl_vector_free(*i);
-  }
-*/
+  //FIXME - memory leak here
 }
 
 double MultiDimGauss::getValueForVector(gsl_vector* point) const
