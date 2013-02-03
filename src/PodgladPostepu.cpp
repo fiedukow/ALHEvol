@@ -4,6 +4,7 @@
 #include <evol/Subject.hpp>
 #include "MultiDimPoint.hpp"
 #include "FunctionValue.hpp"
+#include "Options.hpp"
 
 #include <iostream>
 #include <fstream>
@@ -33,17 +34,24 @@ void PodgladPostepu::update( evol::Population& population )
         std::cout << "Obecny wynik (pokolenie nr. " << populationCounter << ") to: " << std::endl;
         best->print();
     }
-/*    {
-    std::stringstream ss;
-    ss << "presentation/data/" << "subjects_" <<  populationCounter << ".dat";
-    saveSubjectsSnapshot(ss.str(), population);
-    }
-    
+
+    unsigned int maxGeneration = Options::I->maxGeneration();
+    unsigned int smoothGeneration = Options::I->smoothGenerations();
+
+    if(Options::I->dims() == 2)
     {
-    std::stringstream ss;
-    ss << "./presentation/genGenerationPng " << populationCounter << "";
-    system(ss.str().c_str());
-    }*/
+      {
+        std::stringstream ss;
+        ss << "presentation/data/" << "subjects_" <<  populationCounter << ".dat";
+        saveSubjectsSnapshot(ss.str(), population);
+      }
+
+      {
+        std::stringstream ss;
+        ss << "./presentation/genGenerationPng " << populationCounter << "";
+        system(ss.str().c_str());
+      }
+    }
 
     const MyPopulation& myPop = dynamic_cast<const MyPopulation&>(population);
     std::vector<double> avg = myPop.averagePoint();
@@ -52,7 +60,7 @@ void PodgladPostepu::update( evol::Population& population )
       std::cout << i << " ";
     std::cout << std::endl;
 
-    if(populationCounter >= MAX_GENERATION-LAST_AVG)
+    if(populationCounter >= (maxGeneration - smoothGeneration))
     {
       std::cout << std::endl << "Pokolenie nr. "<< populationCounter << std::endl;
 
@@ -66,17 +74,17 @@ void PodgladPostepu::update( evol::Population& population )
       FunctionValue fv = dynamic_cast<const FunctionValue&>(myPop.getGoal());
       MultiDimPoint p(avg.size(), fv.getGauss(), 0.0);    
       p.setPosition(avg);    
-      lastResult[populationCounter-(MAX_GENERATION-LAST_AVG)] = p.getFunctionValue();
+      lastResult[populationCounter-(maxGeneration - smoothGeneration)] = p.getFunctionValue();
 
-      if(populationCounter == MAX_GENERATION)
+      if(populationCounter == maxGeneration)
       {
         population.stopLoop();
         double avg = 0;
-        for(int i = 0; i < LAST_AVG; ++i)
+        for(unsigned int i = 0; i < smoothGeneration; ++i)
         {
           avg += lastResult[i];
         }
-        avg/=LAST_AVG;
+        avg/=smoothGeneration;
         std::cout << "R: " << myPop.getMVariance() << " " << avg << std::endl;  
       }
     }
