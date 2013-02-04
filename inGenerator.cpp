@@ -22,12 +22,12 @@ int main(int argc, char* argv[])
   std::cout << "0.5" << std::endl;
   std::cout << "3.0" << std::endl;
   std::cout << "1.0" << std::endl;
-  std::cout << "1.0 1.0" << std::endl;
+  std::cout << "100.0 1.0" << std::endl;
   std::cout << "-2.0";
   for(int i = 1; i < n; ++i)
     std::cout << " 0.0";
   std::cout << std::endl;
-  std::cout << "2.0 1.0" << std::endl;
+  std::cout << "200.0 1.0" << std::endl;
   std::cout << -2.0+i*0.1;
   for(int i = 1; i < n; ++i)
     std::cout << " 0.0";
