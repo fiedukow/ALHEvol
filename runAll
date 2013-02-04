@@ -1,0 +1,12 @@
+#!/bin/sh
+
+echo "DIMS\tHDis\tMVar\tFFV\tEX" > WYNIKI;
+
+NumberOfEvals=0
+while [ $NumberOfEvals -le 1170 ]
+do
+  ./genIn > input
+  ./bin/ALHEvol input > results/res$NumberOfEvals
+  cat results/res$NumberOfEvals | grep R: | awk '{print $2"\t"$3"\t"$4"\t"$5"\t"$6}' >> WYNIKI
+  NumberOfEvals=`expr $NumberOfEvals + 1`
+done
