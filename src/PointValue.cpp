@@ -4,8 +4,8 @@
 
 const double PointValue::maxRange = 3;
 
-PointValue::PointValue(double mVariance)
-  : value(-3/*(EvolFunctions::random()-0.1*maxRange)*10*/), //-5 to 5
+PointValue::PointValue(double mVariance, int i)
+  : value((i==0?-2.0:0.0)/*(EvolFunctions::random()-0.1*maxRange)*10*/), //-5 to 5
     mVariance_(mVariance)
 {
 }

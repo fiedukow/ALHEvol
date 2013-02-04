@@ -18,7 +18,7 @@ void MultiDimPoint::setInitialValue()
 {
   clearChromosomes();
   for(int i = 0; i < dimensionsCount; ++i)
-    addChromosome(ChromosomePtr(new PointValue(mVariance_)));
+    addChromosome(ChromosomePtr(new PointValue(mVariance_, i)));
 }
 
 SubjectPtr MultiDimPoint::clone() const

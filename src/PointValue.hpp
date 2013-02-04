@@ -11,7 +11,7 @@ typedef std::shared_ptr<PointValue> PointValuePtr;
 class PointValue : public Chromosome
 {
 public:
-    PointValue(double mVariance);
+    PointValue(double mVariance, int i);
     PointValue(double mVariance, double value);
     virtual ChromosomePtr crossWith(ChromosomePtr toCross ) const;
     virtual void mutate();
