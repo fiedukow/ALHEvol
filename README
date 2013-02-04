@@ -1,3 +1,7 @@
+WARNING: This project is totaly not example of good coding.
+This project is just to analyze algorithm result so in many places there are code adjustments specific for data we want to collect.
+Please keep in mind that if we will continue working on this project we will probably make this code more developable and clear.
+
 This is project for Warsaw University of Technology ALHE (Heuristic Alorigthms) course.
 This project is based on evol library.
 
