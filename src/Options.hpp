@@ -20,6 +20,8 @@ public:
   int hillsCount() const;
   bool stopThread() const;
   MultiDimGauss getFF() const;
+
+  double secondHillFirstCoord() const;
   
   static Options* I;
 
@@ -35,6 +37,7 @@ private:
   MultiDimGauss* ff_;
   int maxGenerations_;
   int smoothResultGenerations_;
+  double secondHillFirstCoord_;
   
   bool sumOrMax_;
   bool runStopThread_;

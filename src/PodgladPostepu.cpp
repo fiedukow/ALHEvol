@@ -15,7 +15,11 @@
 #include <cstdio>
 
 PodgladPostepu::PodgladPostepu() : populationCounter(0)
-{}
+{
+#warning Memory leak here...
+lastResult = new double[Options::I->smoothGenerations()];
+lastResultFirstCoord = new double[Options::I->smoothGenerations()];
+}
 
 void PodgladPostepu::update( evol::Population& population )
 {
@@ -75,17 +79,25 @@ void PodgladPostepu::update( evol::Population& population )
       MultiDimPoint p(avg.size(), fv.getGauss(), 0.0);    
       p.setPosition(avg);    
       lastResult[populationCounter-(maxGeneration - smoothGeneration)] = p.getFunctionValue();
+      lastResultFirstCoord[populationCounter-(maxGeneration-smoothGeneration)] = avg[0];
 
       if(populationCounter == maxGeneration)
       {
         population.stopLoop();
         double avg = 0;
+        double avgFC = 0;
         for(unsigned int i = 0; i < smoothGeneration; ++i)
         {
           avg += lastResult[i];
+          avgFC += lastResultFirstCoord[i];
         }
         avg/=smoothGeneration;
-        std::cout << "R: " << myPop.getMVariance() << " " << avg << std::endl;  
+        avgFC/=smoothGeneration;
+        std::cout << "R: " << Options::I->dims() << " "
+                           << Options::I->secondHillFirstCoord() << " "
+                           << Options::I->mutationVariance() << " "
+                           << avg << " " 
+                           << avgFC << std::endl;
       }
     }
 }

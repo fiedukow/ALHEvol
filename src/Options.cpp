@@ -33,7 +33,14 @@ Options::Options(const char* fileName)
   {
     in >> heightC >> covC;
     for(int j = 0; j < dims_; ++j)
+    {
       in >> middleC[j];
+
+      if(i == 1 && j == 0)
+      {
+        secondHillFirstCoord_ = middleC[j]; 
+      }
+    }
     
     MyGaussDescription currentHill(covC, heightC, dims_, middleC);
     std::vector<MyGaussDescription> ctmp;
@@ -122,4 +129,8 @@ MultiDimGauss Options::getFF() const
   return *ff_;
 }
 
+double  Options::secondHillFirstCoord() const
+{
+  return secondHillFirstCoord_;
+}
 
